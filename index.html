@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0b1020; --bg2: #121a33; --card: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.12); --text: #f2f5ff; --muted: #a9b3d1;
+    --a1: #7c5cff; --a2: #19d3c5;
+    --grad: linear-gradient(135deg, var(--a1), var(--a2));
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', system-ui, sans-serif; color: var(--text); line-height: 1.7;
+    background:
+      radial-gradient(900px 500px at 10% -10%, rgba(124,92,255,.25), transparent 60%),
+      radial-gradient(800px 500px at 100% 10%, rgba(25,211,197,.18), transparent 60%),
+      var(--bg);
+    background-attachment: fixed;
+  }
+  a { color: var(--a2); text-decoration: none; }
+
+  /* Navigation */
+  nav {
+    position: sticky; top: 0; z-index: 10; display: flex; gap: 6px; flex-wrap: wrap;
+    justify-content: center; padding: 12px 16px;
+    background: rgba(11,16,32,.7); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav a { color: var(--muted); font-size: .9rem; padding: 6px 14px; border-radius: 999px; transition: .25s; }
+  nav a:hover { color: #fff; background: var(--card); }
+
+  section { max-width: 1000px; margin: 0 auto; padding: 70px 22px 10px; }
+  h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 28px; display: inline-block; position: relative; }
+  h2::after { content: ""; display: block; height: 4px; width: 60%; margin-top: 6px; border-radius: 4px; background: var(--grad); }
+
+  /* Hero */
+  .hero { text-align: center; padding-top: 90px; }
+  .avatar {
+    width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 22px; padding: 4px;
+    background: var(--grad); box-shadow: 0 0 40px rgba(124,92,255,.5);
+    animation: float 4s ease-in-out infinite;
+  }
+  .avatar img, .avatar .initials {
+    width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: flex;
+    align-items: center; justify-content: center; background: var(--bg2);
+    font-size: 3rem; font-weight: 700;
+  }
+  @keyframes float { 50% { transform: translateY(-8px); } }
+  .hero .hi { color: var(--muted); letter-spacing: 2px; text-transform: uppercase; font-size: .85rem; }
+  .hero h1 {
+    font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 700; line-height: 1.2;
+    background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .title { font-size: 1.2rem; margin: 8px 0 18px; font-weight: 500; }
+  .hero p { max-width: 640px; margin: 0 auto; color: var(--muted); }
+  .btns { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    padding: 11px 26px; border-radius: 999px; font-weight: 600; color: #fff; transition: .25s;
+    background: var(--grad); box-shadow: 0 8px 24px rgba(124,92,255,.35);
+  }
+  .btn.ghost { background: transparent; border: 1px solid var(--border); box-shadow: none; }
+  .btn:hover { transform: translateY(-3px); }
+
+  /* Cards */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 22px;
+    backdrop-filter: blur(8px); transition: .3s;
+  }
+  .card:hover { transform: translateY(-6px); border-color: var(--a1); box-shadow: 0 14px 34px rgba(0,0,0,.35); }
+  .card h3 { font-size: 1.05rem; font-weight: 600; }
+  .sub { color: var(--muted); font-size: .9rem; }
+  .tag {
+    display: inline-block; margin-top: 10px; font-size: .78rem; padding: 3px 12px; border-radius: 999px;
+    background: rgba(124,92,255,.2); color: #cfc4ff;
+  }
+
+  /* Skills */
+  .skills { display: flex; flex-wrap: wrap; gap: 12px; }
+  .skill {
+    padding: 9px 20px; border-radius: 999px; font-size: .92rem; font-weight: 500;
+    background: var(--card); border: 1px solid var(--border); transition: .25s;
+  }
+  .skill:hover { background: var(--grad); border-color: transparent; transform: scale(1.06); }
+
+  /* Certificates */
+  .cert { padding: 0; overflow: hidden; }
+  .cert .pic { height: 180px; overflow: hidden; background: var(--bg2); display: flex;
+               align-items: center; justify-content: center; font-size: 3rem; }
+  .cert .pic img { width: 100%; height: 100%; object-fit: cover; transition: .5s; }
+  .cert:hover .pic img { transform: scale(1.08); }
+  .cert .info { padding: 18px 22px 22px; }
+
+  /* Contact */
+  .contact { display: flex; flex-wrap: wrap; gap: 14px; }
+  .contact a {
+    flex: 1 1 220px; padding: 16px 20px; border-radius: 16px; color: var(--text);
+    background: var(--card); border: 1px solid var(--border); transition: .25s;
+  }
+  .contact a:hover { border-color: var(--a2); transform: translateY(-4px); }
+  .contact small { display: block; color: var(--muted); }
+
+  footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 60px 20px 34px; }
+
+  /* Fade-in on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: .8s; }
+  .reveal.show { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<nav id="nav"></nav>
+<div id="app"></div>
+<footer id="footer"></footer>
+
+<script>
+/* ============================================================
+   ✏️  EDIT ONLY THIS PART — replace the sample text with yours
+   ============================================================ */
+const MY = {
+
+  // ---- Basic details ----
+  name: "Yusha",
+  title: "Student",          // what you do
+  photo: "20251031_163821.jpg",                                  // e.g. "me.jpg" (same folder). Leave "" to show your initials
+  about: "",
+  resume: "",                                 // e.g. "resume.pdf" — leave "" to hide the button
+
+  // ---- Skills (add or remove words) ----
+  skills: ["HTML", "CSS", "JavaScript", "Python", "Communication", "Teamwork"],
+
+  // ---- Education (add more blocks, separated by commas) ----
+  education: [
+    { title: "B.Tech ", place: "Shobhit university", year: "2025 - 2029" },
+    { title: "12th ",  place: "Takshashila world school",  year: "2025" },
+    { title: "10th ",   place: "divine light academy",  year: "2023" }
+  ],
+
+  // ---- Certificates ----
+  // image: put the certificate picture in the same folder and write its file name, e.g. "python-cert.jpg"
+  // link:  optional online link to verify the certificate
+  certificates: [
+    { title: "Python Certificate", by: "Coursera", year: "2025", image: "", link: "" },
+    { title: "Web Development",    by: "Udemy",    year: "2024", image: "", link: "" }
+  ],
+
+  // ---- Contact ----
+  contact: {
+    email: "yushamalikambehta",
+    phone: "+91 7217359958",
+    linkedin: "",                             // full link, e.g. "https://linkedin.com/in/yourname"
+    github: ""                                // full link, e.g. "https://github.com/yourname"
+  }
+};
+/* ================= END OF EDIT AREA ================= */
+
+
+/* ---------- Below this line builds the page. No need to change. ---------- */
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const initials = MY.name.split(" ").filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join("");
+
+document.title = MY.name + " | Portfolio";
+const sections = [];
+
+// Hero
+sections.push(`
+<section class="hero reveal" id="home">
+  <div class="avatar">${MY.photo ? `<img src="${esc(MY.photo)}" alt="${esc(MY.name)}">` : `<div class="initials">${esc(initials)}</div>`}</div>
+  <div class="hi">Hello, I'm</div>
+  <h1>${esc(MY.name)}</h1>
+  <div class="title">${esc(MY.title)}</div>
+  <p>${esc(MY.about)}</p>
+  <div class="btns">
+    <a class="btn" href="#certificates">My Certificates</a>
+    ${MY.resume ? `<a class="btn ghost" href="${esc(MY.resume)}" target="_blank">Download Resume</a>` : ""}
+    <a class="btn ghost" href="#contact">Contact Me</a>
+  </div>
+</section>`);
+
+// Skills
+if (MY.skills.length) sections.push(`
+<section id="skills" class="reveal"><h2>Skills</h2>
+  <div class="skills">${MY.skills.map(s => `<span class="skill">${esc(s)}</span>`).join("")}</div>
+</section>`);
+
+// Education
+if (MY.education.length) sections.push(`
+<section id="education" class="reveal"><h2>Education</h2>
+  <div class="grid">${MY.education.map(e => `
+    <div class="card"><h3>🎓 ${esc(e.title)}</h3>
+    <div class="sub">${esc(e.place)}</div><span class="tag">${esc(e.year)}</span></div>`).join("")}
+  </div>
+</section>`);
+
+// Certificates
+if (MY.certificates.length) sections.push(`
+<section id="certificates" class="reveal"><h2>Certificates</h2>
+  <div class="grid">${MY.certificates.map(c => `
+    <div class="card cert">
+      <div class="pic">${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.title)}">` : "🏅"}</div>
+      <div class="info">
+        <h3>${esc(c.title)}</h3>
+        <div class="sub">${esc(c.by)}</div>
+        <span class="tag">${esc(c.year)}</span>
+        ${c.link ? `<div style="margin-top:10px"><a href="${esc(c.link)}" target="_blank" rel="noopener">Verify certificate →</a></div>` : ""}
+      </div>
+    </div>`).join("")}
+  </div>
+</section>`);
+
+// Contact
+const k = MY.contact;
+sections.push(`
+<section id="contact" class="reveal"><h2>Contact</h2>
+  <div class="contact">
+    ${k.email ? `<a href="mailto:${esc(k.email)}"><small>Email</small>✉ ${esc(k.email)}</a>` : ""}
+    ${k.phone ? `<a href="tel:${esc(k.phone.replace(/\s/g, ""))}"><small>Phone</small>☎ ${esc(k.phone)}</a>` : ""}
+    ${k.linkedin ? `<a href="${esc(k.linkedin)}" target="_blank" rel="noopener"><small>LinkedIn</small>View profile →</a>` : ""}
+    ${k.github ? `<a href="${esc(k.github)}" target="_blank" rel="noopener"><small>GitHub</small>View profile →</a>` : ""}
+  </div>
+</section>`);
+
+document.getElementById("app").innerHTML = sections.join("");
+document.getElementById("nav").innerHTML =
+  ["home","skills","education","certificates","contact"]
+  .filter(id => document.getElementById(id))
+  .map(id => `<a href="#${id}">${id[0].toUpperCase() + id.slice(1)}</a>`).join("");
+document.getElementById("footer").textContent = "© " + new Date().getFullYear() + " " + MY.name;
+
+// Fade-in on scroll
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add("show"); }), { threshold: 0.1 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
